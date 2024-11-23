@@ -1,0 +1,1 @@
+import{u}from"./DH_sdufa.js";import{Q as r,A as a}from"./DSVaGC4_.js";import"./BHIaP2wn.js";const i=r(t=>{const e=u(),o=a();if(!e.loggedIn)return o.push({path:"/auth/login",query:{next:t.path}})});export{i as default};
