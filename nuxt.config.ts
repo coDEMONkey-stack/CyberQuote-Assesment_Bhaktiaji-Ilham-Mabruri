@@ -1,4 +1,5 @@
 export default defineNuxtConfig({
+  target: 'static',
   modules: [
     '@nuxt/content',
     '@nuxt/icon',

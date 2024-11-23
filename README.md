@@ -2,7 +2,7 @@
 
 <div align="center">Built with the NuxtJs TypeScript Tailwind</div>
 
-<div align="center"><a href="#">Demo</a></div>
+<div align="center"><a href="https://cyber-quote-assesment-bhaktiaji-ilham-mabruri.vercel.app/">Demo</a></div>
 
 
 ## Overview
