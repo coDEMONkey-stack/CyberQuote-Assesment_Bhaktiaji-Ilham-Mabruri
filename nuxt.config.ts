@@ -1,6 +1,9 @@
 export default defineNuxtConfig({
   target: 'static',
-  ssr: false,
+  ssr: true,
+  serverHandlers: [
+    { route: '/api/auth/login', handler: '~/layers/auth/server/api/auth/login.post.ts' },
+  ],
   modules: [
     '@nuxt/content',
     '@nuxt/icon',

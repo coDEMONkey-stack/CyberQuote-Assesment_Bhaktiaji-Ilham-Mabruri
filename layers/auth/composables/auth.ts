@@ -1,12 +1,10 @@
-import type { AuthUser } from '~~/stores/auth'
+import type { AuthUser } from '@/stores/auth'
 
-export const useAuthStorage = (
-  { authTokenKey, authUserKey } = {
-    authTokenKey: 'auth.token',
-    authUserKey: 'auth.user',
-  },
-) => {
-  const user = useCookie<AuthUser>(authUserKey)
+export function useAuthStorage({ authTokenKey, authUserKey } = {
+  authTokenKey: 'auth.token',
+  authUserKey: 'auth.user',
+}) {
+  const user = useCookie<AuthUser | null>(authUserKey)
   const token = useCookie<string>(authTokenKey)
 
   const store = (newToken: string, newUser: Record<string, any>) => {

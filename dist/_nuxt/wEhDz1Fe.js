@@ -1,0 +1,1 @@
+import{u}from"./BiKz5vNu.js";import{P as r,N as a}from"./XeTPCWW0.js";import"./DjyelFsm.js";const i=r(t=>{const e=u(),o=a();if(!e.loggedIn)return o.push({path:"/auth/login",query:{next:t.path}})});export{i as default};

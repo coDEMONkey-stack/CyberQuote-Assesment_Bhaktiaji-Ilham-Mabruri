@@ -68,7 +68,7 @@ export default defineEventHandler(async (event) => {
       || body.userID === DUMMY_USER.id.toString()
 
     if (!isValidUser) {
-      setResponseStatus(event, 401, 'Unauthenticated')
+      setResponseStatus(event, 401, 'Unauthenticated. UserID not found')
       return {
         error: 'Unauthenticated. UserID not found',
       }
