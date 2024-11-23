@@ -10,6 +10,20 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
   ],
 
+  build: {
+    analyze: true,
+  },
+
+  nitro: {
+    baseURL: 'http://localhost:3000',
+    prerender: {
+      crawlLinks: true,
+      failOnError: false,
+      concurrency: 250,
+      interval: 100,
+    },
+  },
+
   i18n: {
     locales: ['en', 'id'],
     defaultLocale: 'en',
