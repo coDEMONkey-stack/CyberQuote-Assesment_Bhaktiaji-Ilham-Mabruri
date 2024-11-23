@@ -12,6 +12,7 @@ export default defineNuxtConfig({
 
   build: {
     analyze: true,
+    transpile: ['@heroicons/vue'],
   },
 
   nitro: {
