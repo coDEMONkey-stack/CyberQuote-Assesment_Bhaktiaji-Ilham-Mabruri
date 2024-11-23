@@ -1,1 +1,0 @@
-import{u as r}from"./DH_sdufa.js";import{Q as u,A as s}from"./DSVaGC4_.js";import"./BHIaP2wn.js";const n=u(t=>{const e=r(),o=s();if(e.loggedIn)return o.push({path:"/admin",query:{from:t.path}})});export{n as default};

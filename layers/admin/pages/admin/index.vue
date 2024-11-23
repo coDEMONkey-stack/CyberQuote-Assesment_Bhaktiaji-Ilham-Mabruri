@@ -1,14 +1,14 @@
-<script lang="ts" setup>
+<script setup>
 import { onMounted, ref } from 'vue'
 import { useAuthStore } from '@/stores/auth'
 
 const auth = useAuthStore()
 const isLoading = ref(true)
-const errorMessage = ref<string | null>(null)
+const errorMessage = ref(null)
 
 onMounted(async () => {
   try {
-    // Dummy user ID for Bhaktiaji Ilham Mabruri
+    // dummy userID for Bhaktiaji Ilham Mabruri
     if (!auth.user)
       await auth.login('97')
 

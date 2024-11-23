@@ -1,5 +1,6 @@
 export default defineNuxtConfig({
   target: 'static',
+  ssr: false,
   modules: [
     '@nuxt/content',
     '@nuxt/icon',
@@ -15,7 +16,6 @@ export default defineNuxtConfig({
     analyze: true,
     transpile: ['@heroicons/vue'],
   },
-
   nitro: {
     prerender: {
       crawlLinks: true,

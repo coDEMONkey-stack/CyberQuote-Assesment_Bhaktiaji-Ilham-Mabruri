@@ -1,4 +1,5 @@
-<script lang="ts" setup>
+<script setup>
+import { computed, ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import { object, string } from 'yup'
 import { useAuthStore } from '@/stores/auth'
@@ -13,19 +14,17 @@ definePageMeta({
 })
 
 const { handleSubmit } = useForm({
-
   validationSchema: object({
     userID: string()
       .matches(/^\d+$/, 'Only numbers are allowed. Please remove any letters or special characters.')
       .required('User ID is required')
       .label('User ID'),
-
   }),
 })
 
 const auth = useAuthStore()
 const router = useRouter()
-const error = ref()
+const error = ref(null)
 const route = useRoute()
 
 const { store } = useAuthStorage()
@@ -37,6 +36,7 @@ const { value: userID, errorMessage: userIDError, validate } = useField('userID'
 const isLoginDisabled = computed(() => {
   return !/^\d+$/.test(userID.value)
 })
+
 const onSubmit = handleSubmit(async (values) => {
   error.value = ''
   try {
@@ -53,10 +53,10 @@ const onSubmit = handleSubmit(async (values) => {
     auth.user = user
     auth.loggedIn = true
 
-    router.push((route.query as any).next || '/admin')
+    router.push(route.query?.next || '/admin')
   }
-  catch (e: any) {
-    error.value = e.data.error
+  catch (e) {
+    error.value = e?.data?.error || 'An unknown error occurred'
   }
   setTimeout(() => {
     error.value = null

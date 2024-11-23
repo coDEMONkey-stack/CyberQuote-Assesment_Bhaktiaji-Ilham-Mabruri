@@ -4,7 +4,7 @@
     "dev": "nuxi dev",
     "build": "set NODE_OPTIONS=--max-old-space-size=16384 nuxi build",
     "start": "node .output/server/index.mjs",
-    "generate": "nuxt generate",
+    "generate": "nuxi generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "storybook": "start-storybook -p 6006",

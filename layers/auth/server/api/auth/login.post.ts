@@ -1,6 +1,6 @@
 import axios from 'axios'
+import { defineEventHandler, readBody, setResponseStatus } from 'h3'
 
-// default dummy user
 const DUMMY_USER = {
   id: 97,
   name: 'Bhaktiaji Ilham Mabruri',
@@ -25,28 +25,38 @@ const DUMMY_USER = {
   },
 }
 
+interface Geo {
+  lat: string
+  lng: string
+}
+
+interface Address {
+  street: string
+  suite: string
+  city: string
+  zipcode: string
+  geo?: Geo
+}
+
+interface Company {
+  name: string
+  catchPhrase: string
+  bs: string
+}
+
 interface User {
   id: number
   name: string
   username: string
   email: string
-  address: {
-    street: string
-    suite: string
-    city: string
-    zipcode: string
-  }
+  address: Address
   phone: string
   website: string
-  company: {
-    name: string
-    catchPhrase: string
-    bs: string
-  }
+  company: Company
 }
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event)
+  const body = await readBody<{ userID: string }>(event)
 
   try {
     // fetch users from API
@@ -54,7 +64,8 @@ export default defineEventHandler(async (event) => {
 
     // check if user ID matches either the dummy user or an API user
     const isValidUser
-      = users.some(user => user.id.toString() === body.userID) || body.userID === DUMMY_USER.id.toString()
+      = users.some(user => user.id.toString() === body.userID)
+      || body.userID === DUMMY_USER.id.toString()
 
     if (!isValidUser) {
       setResponseStatus(event, 401, 'Unauthenticated')
@@ -69,16 +80,24 @@ export default defineEventHandler(async (event) => {
         ? DUMMY_USER
         : users.find(user => user.id.toString() === body.userID)
 
+    if (!user) {
+      setResponseStatus(event, 500, 'Internal Server Error')
+      return {
+        error: 'Unexpected error: user not found after validation',
+      }
+    }
+
     return {
       token: `dummy-token-${user.id}`,
       user,
     }
   }
-  catch (error) {
+  catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
     setResponseStatus(event, 500, 'Internal Server Error')
     return {
       error: 'Failed to fetch user data',
-      details: error.message,
+      details: errorMessage,
     }
   }
 })
