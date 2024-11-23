@@ -142,6 +142,14 @@ definePageMeta({
                 {{ auth.user?.company?.catchPhrase || 'N/A' }}
               </td>
             </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-semibold w-1/3 sm:w-1/4">
+                BS
+              </td>
+              <td class="border border-gray-300 px-4 py-2">
+                {{ auth.user?.company?.bs || 'N/A' }}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

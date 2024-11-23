@@ -21,7 +21,7 @@ const DUMMY_USER = {
   company: {
     name: 'Cyber Quote',
     catchPhrase: 'Financial Training Information Technology',
-    bs: 'cyber quote financial it solutions',
+    bs: 'cyberquote financial it solutions',
   },
 }
 
@@ -41,6 +41,7 @@ interface User {
   company: {
     name: string
     catchPhrase: string
+    bs: string
   }
 }
 
