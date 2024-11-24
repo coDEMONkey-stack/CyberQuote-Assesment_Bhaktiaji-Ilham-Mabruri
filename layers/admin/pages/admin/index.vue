@@ -66,10 +66,10 @@ definePageMeta({
             </tr>
             <tr>
               <td class="border border-gray-300 px-4 py-2 font-semibold w-1/3 sm:w-1/4">
-                Email
+                Website
               </td>
               <td class="border border-gray-300 px-4 py-2">
-                {{ auth.user?.email }}
+                {{ auth.user?.website }}
               </td>
             </tr>
           </tbody>
@@ -109,6 +109,14 @@ definePageMeta({
               </td>
               <td class="border border-gray-300 px-4 py-2">
                 {{ auth.user?.phone }}
+              </td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-semibold w-1/3 sm:w-1/4">
+                Email
+              </td>
+              <td class="border border-gray-300 px-4 py-2">
+                {{ auth.user?.email }}
               </td>
             </tr>
           </tbody>
