@@ -1,7 +1,3 @@
-import { writeFileSync } from 'node:fs'
-import { resolve } from 'node:path'
-import axios from 'axios'
-
 export default defineNuxtConfig({
   target: 'server',
   ssr: true,
@@ -28,48 +24,6 @@ export default defineNuxtConfig({
       failOnError: false,
       concurrency: 250,
       interval: 100,
-    },
-  },
-  hooks: {
-    'nitro:config': async () => {
-      try {
-        const { data: users } = await axios.get('https://jsonplaceholder.typicode.com/users/')
-
-        const dummyUser = {
-          id: 97,
-          name: 'Bhaktiaji Ilham Mabruri',
-          username: 'bhakti97',
-          email: 'bhaktiaji1997@gmail.com',
-          address: {
-            street: 'Jl. RRI Kp. Parung Serab',
-            suite: 'Kelurahan Tirtajaya, Kecamatan Sukmajaya',
-            city: 'Depok',
-            zipcode: '16412',
-            geo: {
-              lat: '-6.2088',
-              lng: '106.8456',
-            },
-          },
-          phone: '+62822-2112-2318',
-          website: 'https://github.com/coDEMONkey-stack',
-          company: {
-            name: 'Cyber Quote',
-            catchPhrase: 'Financial Training Information Technology',
-            bs: 'cyberquote financial it solutions',
-          },
-        }
-        const combinedUsers = [dummyUser, ...users]
-
-        const filePath = resolve(__dirname, 'public', 'users.json')
-        writeFileSync(filePath, JSON.stringify(combinedUsers, null, 2))
-
-        /* eslint-disable no-console */
-        if (process.env.NODE_ENV !== 'production')
-          console.info('✅ Data pengguna berhasil disimpan ke public/users.json')
-      }
-      catch (error) {
-        console.error('❌ Gagal mem-fetch data pengguna:', error)
-      }
     },
   },
   i18n: {
