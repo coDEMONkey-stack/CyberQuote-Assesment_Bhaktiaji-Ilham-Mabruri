@@ -1,1 +1,0 @@
-import{u}from"./COXIHNyg.js";import{P as r,N as a}from"./D6WxgO_k.js";import"./CrdTo_oj.js";const i=r(t=>{const e=u(),o=a();if(!e.loggedIn)return o.push({path:"/auth/login",query:{next:t.path}})});export{i as default};
