@@ -1,1 +1,0 @@
-import{u as r}from"./CIKk4w_D.js";import{P as u,N as s}from"./DvyS4ipv.js";import"./YooXRmiX.js";const n=u(t=>{const e=r(),o=s();if(e.loggedIn)return o.push({path:"/admin",query:{from:t.path}})});export{n as default};

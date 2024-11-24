@@ -19,6 +19,7 @@ export default defineNuxtConfig({
     transpile: ['@heroicons/vue'],
   },
   nitro: {
+    preset: 'vercel',
     prerender: {
       crawlLinks: true,
       failOnError: false,

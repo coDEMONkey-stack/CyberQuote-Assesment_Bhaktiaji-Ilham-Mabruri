@@ -1,1 +1,0 @@
-import{u}from"./CIKk4w_D.js";import{P as r,N as a}from"./DvyS4ipv.js";import"./YooXRmiX.js";const i=r(t=>{const e=u(),o=a();if(!e.loggedIn)return o.push({path:"/auth/login",query:{next:t.path}})});export{i as default};
