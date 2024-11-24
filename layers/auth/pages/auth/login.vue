@@ -40,7 +40,7 @@ const isLoginDisabled = computed(() => {
 const onSubmit = handleSubmit(async (values) => {
   error.value = ''
   try {
-    const res = await $fetch('/api/auth/login', {
+    const res = await $fetch('https://cyber-quote-assesment-bhaktiaji-ilham-mabruri.vercel.app/api/auth/login', {
       method: 'post',
       body: values,
     })
