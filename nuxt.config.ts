@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  target: 'static',
+  target: 'server',
   ssr: true,
   serverMiddleware: [
     { path: '/api', handler: '~/layers/auth/server/api' },
