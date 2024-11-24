@@ -1,0 +1,48 @@
+import { u as useAuthStore } from './auth-CexA4LLA.mjs';
+import { l as defineNuxtRouteMiddleware, u as useRouter } from './server.mjs';
+import './cookie-qIRfTUpt.mjs';
+import 'vue';
+import '../_/nitro.mjs';
+import 'unified';
+import 'remark-parse';
+import 'remark-rehype';
+import 'remark-mdc';
+import 'remark-gfm';
+import 'rehype-external-links';
+import 'rehype-sort-attribute-values';
+import 'rehype-sort-attributes';
+import 'rehype-raw';
+import 'detab';
+import 'micromark-util-sanitize-uri';
+import 'hast-util-to-string';
+import 'github-slugger';
+import 'node:http';
+import 'node:https';
+import 'node:fs';
+import 'node:url';
+import '@iconify/utils';
+import 'consola/core';
+import 'node:path';
+import 'unhead';
+import '@unhead/shared';
+import 'vue-router';
+import '@intlify/core-base';
+import 'is-https';
+import '@iconify/vue';
+import 'vue/server-renderer';
+
+const guest = defineNuxtRouteMiddleware((to) => {
+  const auth = useAuthStore();
+  const router = useRouter();
+  if (auth.loggedIn) {
+    return router.push({
+      path: "/admin",
+      query: {
+        from: to.path
+      }
+    });
+  }
+});
+
+export { guest as default };
+//# sourceMappingURL=guest-CI4CJGN1.mjs.map

@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  target: 'server',
+  target: 'static',
   ssr: true,
   serverMiddleware: [
     { path: '/api', handler: '~/layers/auth/server/api' },
@@ -89,5 +89,5 @@ export default defineNuxtConfig({
   devtools: {
     enabled: true,
   },
-  compatibilityDate: '2024-11-22',
+  compatibilityDate: '2024-11-24',
 })
