@@ -14,7 +14,7 @@ onMounted(async () => {
     if (!auth.user)
       await auth.login('97')
 
-    if (auth.user && auth.user.id <= 5)
+    if (auth.user && auth.user.id < 5)
       router.push('/admin/not-vip')
     else
       isLoading.value = false

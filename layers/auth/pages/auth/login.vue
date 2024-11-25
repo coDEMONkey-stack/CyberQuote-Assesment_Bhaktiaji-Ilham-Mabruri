@@ -13,13 +13,30 @@ definePageMeta({
   middleware: 'guest',
 })
 
+const validationType = ref('1') // default: Only numbers are allowed | type 2: Only letters are allowed
+
+const validationSchema = computed(() => {
+  if (validationType.value === '1') {
+    return object({
+      userID: string()
+        .matches(/^\d+$/, 'Only numbers are allowed. Please remove any letters or special characters.')
+        .required('User ID is required')
+        .label('User ID'),
+    })
+  }
+  else if (validationType.value === '2') {
+    return object({
+      userID: string()
+        .matches(/^[A-Za-z]+$/, 'Only letters are allowed. Please remove any numbers or special characters.')
+        .required('User ID is required')
+        .label('User ID'),
+    })
+  }
+  return object()
+})
+
 const { handleSubmit } = useForm({
-  validationSchema: object({
-    userID: string()
-      .matches(/^\d+$/, 'Only numbers are allowed. Please remove any letters or special characters.')
-      .required('User ID is required')
-      .label('User ID'),
-  }),
+  validationSchema,
 })
 
 const auth = useAuthStore()
@@ -34,7 +51,12 @@ const { value: userID, errorMessage: userIDError, validate } = useField('userID'
 })
 
 const isLoginDisabled = computed(() => {
-  return !/^\d+$/.test(userID.value)
+  if (validationType.value === '1')
+    return !/^\d+$/.test(userID.value)
+  else if (validationType.value === '2')
+    return !/^[A-Za-z]+$/.test(userID.value)
+
+  return true
 })
 
 const onSubmit = handleSubmit(async (values) => {
@@ -66,25 +88,25 @@ const onSubmit = handleSubmit(async (values) => {
 
 <template>
   <div class="flex items-center justify-center h-full">
-    <form
-      class="rounded-lg px-10 py-8 w-full max-w-md mx-auto"
-      @submit="onSubmit"
-    >
+    <form class="rounded-lg px-10 py-8 w-full max-w-md mx-auto" @submit="onSubmit">
       <AuthHeader title="Login" subtitle="Please enter your credentials" />
 
       <div v-if="error" class="bg-error-600 text-white text-sm px-4 py-3 rounded-lg mb-4">
         {{ error }}
       </div>
+
       <!-- input userID 97 as DUMMY_USER: bhaktiaji ilham -->
+      <!-- validation type refers to letters/numbers only that are allowed -->
       <VUInput
         v-model="userID"
         hint="dummy: 97"
+        :validation-type="validationType"
         wrapper-class="mb-1"
         name="userID"
         :label="`User ID${userID ? `: ${userID}` : ''}`"
         placeholder="Input User ID"
         :error-message="userIDError"
-        @input="validate()"
+        @input="validate(userID)"
       />
 
       <div v-if="userIDError && userID" class="text-error-600 text-sm mb-4">

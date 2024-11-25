@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { tv } from 'tailwind-variants'
+import { ref, watch } from 'vue'
 
 const {
   type = 'text',
@@ -7,8 +8,8 @@ const {
   size,
   variant = 'filled',
   error,
+  validationType = '1',
 } = defineProps<{
-  validationType?: '1' | '2'
   variant?: 'filled' | 'outlined' | 'underline'
   type?: string
   label?: string
@@ -26,6 +27,7 @@ const {
   errorMessage?: string
   outerClass?: string
   wrapperClass?: string
+  validationType?: '1' | '2'
 }>()
 
 const emit = defineEmits<{
@@ -43,7 +45,7 @@ const input = tv({
   slots: {
     outer: '',
     label:
-      'empty:hidden text-gray-800 font-medioum tracking-wide text-sm mb-1 block focus-within:text-primary-600',
+      'empty:hidden text-gray-800 font-medium tracking-wide text-sm mb-1 block focus-within:text-primary-600',
     inner: 'flex items-center',
     prepend: 'empty:hidden h-full flex items-center pl-3',
     append: 'empty:hidden h-full flex items-center pr-3',
@@ -146,7 +148,35 @@ const {
   error,
 })
 
-const modelValue = defineModel<string | number>({
+const modelValue = ref('')
+const userIDError = ref('')
+
+// Function to validate input
+function validate() {
+  if (validationType === '1') {
+    const regex = /^[0-9]+$/
+    if (modelValue.value && !regex.test(modelValue.value))
+      userIDError.value = 'Only numbers are allowed. Please remove any letters or special characters.'
+    else
+      userIDError.value = ''
+  }
+  else if (validationType === '2') {
+    const regex = /^[A-Za-z]+$/
+    if (modelValue.value && !regex.test(modelValue.value))
+      userIDError.value = 'Only letters are allowed. Please remove any numbers or special characters.'
+    else
+      userIDError.value = ''
+  }
+}
+
+const isLoginDisabled = ref(true)
+
+watch(modelValue, () => {
+  validate()
+  isLoginDisabled.value = !modelValue.value || userIDError.value !== ''
+})
+
+defineModel({
   local: true,
 })
 </script>
@@ -175,6 +205,7 @@ const modelValue = defineModel<string | number>({
           :placeholder="placeholder"
           :class="[inputClassVariant()]"
           v-bind="$attrs"
+          @input="validate()"
         >
         <div :class="appendClass()" @click="emit('click:append')">
           <slot name="append">
@@ -196,8 +227,9 @@ const modelValue = defineModel<string | number>({
         </div>
       </slot>
       <slot name="error" v-bind="{ error, errorMessage }">
-        <div v-if="error" :class="[errorClass()]">
-          {{ errorMessage }}
+        <!-- Error handling, but it doesn't show if field is empty -->
+        <div v-if="userIDError && modelValue" :class="[errorClass()]" class="mb-2">
+          {{ userIDError }}
         </div>
       </slot>
     </div>
